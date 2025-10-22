@@ -2,7 +2,7 @@
 
 A full-stack application that predicts student stress levels based on various factors like sleep patterns, study hours, physical activity, and academic pressure. The application provides personalized recommendations based on the predicted stress level.
 
-![Project Screenshot](docs/screenshot.png)
+![Student Stress Level Predictor Interface](images/stress-predictor-screenshot.png)
 
 ## Table of Contents
 
