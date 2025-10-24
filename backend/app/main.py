@@ -19,7 +19,7 @@ app = FastAPI(
 # Configure CORS for frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["http://localhost:3000", "http://localhost:3001", "http://localhost:5173", "http://127.0.0.1:5173", "http://127.0.0.1:3001"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -39,15 +39,16 @@ def health_check():
 @app.post("/predict", response_model=PredictionResponse)
 async def predict(data: StressInput):
     try:
-        # Predict stress level
+        # Predict stress level (returns 'low', 'medium', or 'high')
         stress_level, confidence = predict_stress_level(model, data)
         
-        # Map numeric stress level to categorical labels
-        stress_category = "Low"
-        if stress_level == 1:
-            stress_category = "Moderate"
-        elif stress_level == 2:
-            stress_category = "High"
+        # Map the model's output to UI-friendly labels
+        stress_mapping = {
+            'low': 'Low',
+            'medium': 'Moderate',
+            'high': 'High'
+        }
+        stress_category = stress_mapping.get(stress_level.lower(), 'Moderate')
         
         return {
             "stress_level": stress_category,
