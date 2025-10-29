@@ -53,7 +53,7 @@ const StressForm = ({ onPredictionResult }) => {
 
     try {
       const result = await predictStressLevel(formData);
-      onPredictionResult(result);
+      onPredictionResult(result, formData); // Pass both result and formData
     } catch (err) {
       setError("Failed to predict stress level. Please try again.");
       console.error("Error submitting form:", err);
